@@ -7,7 +7,7 @@ route.get("/",async(req,res)=>{
 
     try {
 
-       const user=await User.find()
+       const user=await User.find().populate('todo')
        res.json(user)
 
 

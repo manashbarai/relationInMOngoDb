@@ -8,7 +8,7 @@ route.get("/",async(req,res)=>{
 
     try {
 
-       const user=await User.find()
+       const user=await Todo.find().populate('userId')
        res.json(user)
 
 
@@ -20,12 +20,15 @@ route.get("/",async(req,res)=>{
 
 })
 route.post("/:userId",async(req,res)=>{
-    const {userId}=req.params.userId;
-    const todo=new Todo(...req.body,userId)
+    console.log(req.body);
+    
+    const {userId}=req.params;
+    const todo=new Todo({...req.body,userId})
     try {
         await todo.save()
         await User.findByIdAndUpdate(userId, { $push: { todo: todo._id } });
-
+        console.log(userId);
+        
         res.json(todo);
 
     } catch (error) {
