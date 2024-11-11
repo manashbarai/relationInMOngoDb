@@ -8,6 +8,7 @@ app.use(cors())
 
 
 app.use("/user",require("./route/user"))
+app.use("/todo",require("./route/tod"))
 
 
 app.get('/', (req, res) => res.send('Hello World!'))
